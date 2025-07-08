@@ -15,11 +15,11 @@
 
 a {
   font-weight: 500;
-  color: #646cff;
+  color: #78b3ff;
   text-decoration: inherit;
 }
 a:hover {
-  color: #535bf2;
+  color: #20adff;
 }
 
 body {
@@ -42,8 +42,16 @@ h1 {
   text-align: center;
 }
 
-.logo {
-  height: 6em;
+.link {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-block-end: 2rem;
+}
+
+.link .logo {
+  width: 6em;
+  aspect-ratio: 1;
   padding: 1.5em;
   will-change: filter;
   transition: filter 300ms;
@@ -52,15 +60,7 @@ h1 {
   filter: drop-shadow(0 0 2em #646cffaa);
 }
 .logo.vanilla:hover {
-  filter: drop-shadow(0 0 2em #3178c6aa);
-}
-
-.card {
-  padding: 2em;
-}
-
-.read-the-docs {
-  color: #888;
+  filter: drop-shadow(0 0 2em #20adffaa);
 }
 
 button {
@@ -75,7 +75,7 @@ button {
   transition: border-color 0.25s;
 }
 button:hover {
-  border-color: #646cff;
+  border-color: #20adff;
 }
 button:focus,
 button:focus-visible {
@@ -88,7 +88,7 @@ button:focus-visible {
     background-color: #ffffff;
   }
   a:hover {
-    color: #747bff;
+    color: #20adff;
   }
   button {
     background-color: #f9f9f9;

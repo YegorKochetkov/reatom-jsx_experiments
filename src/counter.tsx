@@ -1,12 +1,12 @@
-import { action, atom } from "@reatom/core";
-
-const counterAtom = atom(0, "counter");
-const onClick = action((ctx) => {
-	counterAtom(ctx, (counter) => counter + 1);
-}, "setCounter");
+import { counterAtom } from "./counterControlPanel";
 
 export const Counter = () => (
-	<button type="button" on:click={onClick}>
-		Count: {counterAtom}
-	</button>
+	<p
+		css:size={counterAtom}
+		css={`
+			font-size: calc(1em + var(--size) * 0.1em);
+		`}
+	>
+		Counter: {counterAtom}
+	</p>
 );
