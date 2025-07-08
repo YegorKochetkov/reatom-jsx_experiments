@@ -9,7 +9,13 @@ const decreaseCounter = action((ctx) => {
 }, "decreaseCounter");
 
 export const CounterControlPanel = () => (
-	<div>
+	<div
+		css={`
+			display: flex;
+			gap: 1rem;
+			justify-content: center;
+		`}
+	>
 		<button type="button" on:click={decreaseCounter}>
 			Decrease
 		</button>
