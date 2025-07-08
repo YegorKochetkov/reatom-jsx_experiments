@@ -12,10 +12,11 @@ const styles = css`
 		aspect-ratio: 1;
 		padding: 1.5em;
 		will-change: filter;
-		transition: filter 300ms;
+		transition: filter 300ms, transform 300ms ease-in-out;
 	}
 
 	&:hover img {
+		transform: rotate(42deg);
 		filter: drop-shadow(0 0 2em #646cffaa);
 	}
 `;
