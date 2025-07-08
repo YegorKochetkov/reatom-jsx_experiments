@@ -7,5 +7,5 @@ if (import.meta.env.MODE === "development") {
 	connectLogger(ctx);
 }
 
-// biome-ignore lint/style/noNonNullAssertion: element is definitely not null
+// biome-ignore lint/style/noNonNullAssertion: The element certainly exists.
 mount(document.getElementById("app")!, <App />);
