@@ -19,32 +19,32 @@ counter.tsx:
 import { action, atom } from "@reatom/core";
 
 const counterAtom = atom(0, "counter");
-const onClick = action((ctx) => {
- counterAtom(ctx, (counter) => counter + 1);
+const onClick = action(ctx => {
+    counterAtom(ctx, counter => counter + 1);
 }, "setCounter");
 
 export const Counter = () => (
- <button
-  type="button"
-  on:click={onClick}
-  css:size={counterAtom}
-  css={`
-        font-size: calc(1em + var(--size) * 0.1em);
-      `}
- >
-  Count: {counterAtom}
- </button>
+    <button
+        type="button"
+        on:click={onClick}
+        css:size={counterAtom}
+        css={`
+            font-size: calc(1em + var(--size) * 0.1em);
+        `}
+    >
+        Count: {counterAtom}
+    </button>
 );
 ```
 
 ```tsx
-import { connectLogger } from "@reatom/framework"
-import { ctx, mount } from "@reatom/jsx"
-import { Counter } from "./counter"
+import { connectLogger } from "@reatom/framework";
+import { ctx, mount } from "@reatom/jsx";
+import { Counter } from "./counter";
 
 if (import.meta.env.MODE === "development") {
-  connectLogger(ctx)
+    connectLogger(ctx);
 }
 
-mount(document.getElementById("app")!, <Counter />)
+mount(document.getElementById("app")!, <Counter />);
 ```
