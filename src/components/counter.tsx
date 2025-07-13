@@ -5,6 +5,7 @@ export const Counter = () => (
         css:size={counterAtom}
         css={`
             font-size: calc(1em + var(--size) * 0.1em);
+            margin: 0;
         `}
     >
         Counter: {counterAtom}

@@ -42,7 +42,8 @@ h1 {
     text-align: center;
 }
 
-button {
+button,
+li {
     border-radius: 8px;
     border: 1px solid transparent;
     padding: 0.6em 1.2em;
@@ -53,10 +54,13 @@ button {
     cursor: pointer;
     transition: border-color 0.25s;
 }
-button:hover {
+button:hover,
+li:hover {
     border-color: light-dark(#0084ff, #20adff);
 }
 button:focus,
-button:focus-visible {
+button:focus-visible,
+li:focus,
+li:focus-visible {
     outline: 4px auto -webkit-focus-ring-color;
 }

@@ -5,7 +5,6 @@ const styles = css`
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-block-end: 2rem;
 
     img {
         width: 6em;
