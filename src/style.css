@@ -21,11 +21,13 @@ a {
 a:hover {
     color: light-dark(#0000ff, #0084ff);
 }
+td > a {
+    cursor: pointer;
+    color: inherit;
+}
 
 body {
     margin: 0;
-    display: flex;
-    place-items: center;
     min-width: 320px;
     min-height: 100vh;
 }
