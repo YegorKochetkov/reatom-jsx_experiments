@@ -23,12 +23,7 @@ const styles = css`
 `;
 
 export const ReatomPromo = () => (
-    <a
-        css={styles}
-        href="https://v1000.reatom.dev/"
-        target="_blank"
-        rel="noopener noreferrer"
-    >
+    <a css={styles} href="https://v1000.reatom.dev/" target="_blank" rel="noopener noreferrer">
         <img src={reatomLogo} alt="Reatom logo" />
         <span>Visit Reatom's Website</span>
     </a>
