@@ -1,4 +1,4 @@
-import { type Action, action, atom, type AtomMut } from "@reatom/framework";
+import { type Action, action, atom } from "@reatom/framework";
 
 let idCounter = 1;
 const adjectives = ["pretty", "large", "big", "small", "tall", "short", "long", "handsome", "plain", "quaint", "clean", "elegant", "easy", "angry", "crazy", "helpful", "mushy", "odd", "unsightly", "adorable", "important", "inexpensive", "cheap", "expensive", "fancy"];
@@ -11,7 +11,7 @@ function random(max: number) {
 
 type Data = {
     id: number;
-    label: AtomMut<string>;
+    label: string;
 };
 
 function buildData(count: number) {
@@ -22,11 +22,10 @@ function buildData(count: number) {
         const color = colors[random(colors.length)];
         const noun = nouns[random(nouns.length)];
         const label = `${adjective} ${color} ${noun}`;
-        const labelAtom = atom(label, "labelAtom");
 
         data[i] = {
             id: idCounter++,
-            label: labelAtom,
+            label,
         };
     }
 
@@ -54,18 +53,19 @@ const runLots = action(
 );
 const add = action(ctx => dataAtom(ctx, [...ctx.get(dataAtom), ...buildData(1000)]), "add");
 const update = action(ctx => {
-    const data = ctx.get(dataAtom);
+    const data = ctx.get(dataAtom).slice();
     for (let i = 0; i < data.length; i += 10) {
-        data[i].label(ctx, () => ctx.get(data[i].label) + " !!!");
+        data[i].label += " !!!";
     }
+    dataAtom(ctx, data);
 }, "update");
 const swapRows = action(ctx => {
-    const data = ctx.get(dataAtom);
+    const data = ctx.get(dataAtom).slice();
     if (data.length > 998) {
         const tmp = data[1];
         data[1] = data[998];
         data[998] = tmp;
-        dataAtom(ctx, [...data]);
+        dataAtom(ctx, data);
     }
 }, "swapRows");
 const clear = action(ctx => dataAtom(ctx, []), "clear");
