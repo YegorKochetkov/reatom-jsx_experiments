@@ -1,4 +1,5 @@
-import { type Action, action, atom } from "@reatom/framework";
+import { action, atom } from "@reatom/framework";
+import { Button } from "./button";
 
 let idCounter = 1;
 const adjectives = ["pretty", "large", "big", "small", "tall", "short", "long", "handsome", "plain", "quaint", "clean", "elegant", "easy", "angry", "crazy", "helpful", "mushy", "odd", "unsightly", "adorable", "important", "inexpensive", "cheap", "expensive", "fancy"];
@@ -9,7 +10,7 @@ function random(max: number) {
     return Math.round(Math.random() * 1000) % max;
 }
 
-type Data = {
+export type Data = {
     id: number;
     label: string;
 };
@@ -77,19 +78,6 @@ const select = action((ctx, id: number) => {
     selectedAtom(ctx, id);
 }, "select");
 
-const Button = ({ id, text, fn }: { id: string; text: string; fn: Action<[], Data[] | void> }) => (
-    <button
-        id={id}
-        type="button"
-        on:click={fn}
-        css={`
-            width: fit-content;
-        `}
-    >
-        {text}
-    </button>
-);
-
 const dataViewTableAtom = atom(ctx => {
     return ctx.spy(dataAtom).map(row => (
         <tr
@@ -139,12 +127,12 @@ export const Benchmark = () => {
                     margin-bottom: 3rem;
                 `}
             >
-                <Button id="run" text="Create 1,000 rows" fn={run} />
-                <Button id="add" text="Append 1,000 rows" fn={add} />
-                <Button id="runlots" text="Create 10,000 rows" fn={runLots} />
-                <Button id="update" text="Update every 10th row" fn={update} />
-                <Button id="swaprows" text="Swap Rows" fn={swapRows} />
-                <Button id="clear" text="Clear" fn={clear} />
+                <Button type="button" id="run" text="Create 1,000 rows" fn={run} />
+                <Button type="button" id="add" text="Append 1,000 rows" fn={add} />
+                <Button type="button" id="runlots" text="Create 10,000 rows" fn={runLots} />
+                <Button type="button" id="update" text="Update every 10th row" fn={update} />
+                <Button type="button" id="swaprows" text="Swap Rows" fn={swapRows} />
+                <Button type="button" id="clear" text="Clear" fn={clear} />
             </div>
             <DataTableAtom />
             <span aria-hidden="true" />
