@@ -3,6 +3,8 @@
 Introduction to [Reatom JSX](https://v3.reatom.dev/package/jsx/) - a library for describing dynamic DOM user interfaces.
 It is based on [Reatom](https://v3.reatom.dev/) - a library for creating reactive applications.
 
+## [Open demo](https://reatom-jsx-experiments.vercel.app/)
+
 ## Example
 
 ### Install
