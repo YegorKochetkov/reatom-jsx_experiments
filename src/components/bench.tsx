@@ -1,7 +1,6 @@
 import { action, atom } from "@reatom/framework";
 import { Button } from "./button";
 
-let idCounter = 1;
 const adjectives = ["pretty", "large", "big", "small", "tall", "short", "long", "handsome", "plain", "quaint", "clean", "elegant", "easy", "angry", "crazy", "helpful", "mushy", "odd", "unsightly", "adorable", "important", "inexpensive", "cheap", "expensive", "fancy"];
 const colors = ["red", "yellow", "blue", "green", "pink", "brown", "purple", "brown", "white", "black", "orange"];
 const nouns = ["table", "chair", "house", "bbq", "desk", "car", "pony", "cookie", "sandwich", "burger", "pizza", "mouse", "keyboard"];
@@ -15,7 +14,7 @@ export type Data = {
 	label: string;
 };
 
-function buildData(count: number) {
+function buildData(count: number, idCounter: number) {
 	const data: Data[] = new Array(count);
 
 	for (let i = 0; i < count; i++) {
@@ -25,9 +24,11 @@ function buildData(count: number) {
 		const label = `${adjective} ${color} ${noun}`;
 
 		data[i] = {
-			id: idCounter++,
+			id: idCounter,
 			label,
 		};
+
+		idCounter++;
 	}
 
 	return data;
@@ -39,20 +40,35 @@ const selectedAtom = atom<number | null>(null, "selectedAtom");
 const run = action(
 	ctx =>
 		dataAtom(ctx, () => {
-			idCounter = 1;
-			return buildData(1000);
+			return buildData(1000, 1);
 		}),
 	"run"
 );
+
 const runLots = action(
 	ctx =>
 		dataAtom(ctx, () => {
-			idCounter = 1;
-			return buildData(10000);
+			return buildData(10000, 1);
 		}),
 	"runLots"
 );
-const add = action(ctx => dataAtom(ctx, [...ctx.get(dataAtom), ...buildData(1000)]), "add");
+
+const add = action(ctx => {
+	const data = ctx.get(dataAtom);
+	const newData = buildData(1000, data.length + 1);
+	const result = new Array(data.length + newData.length);
+
+	for (let i = 0; i < data.length; i++) {
+		result[i] = data[i];
+	}
+
+	for (let i = 0; i < newData.length; i++) {
+		result[i + data.length] = newData[i];
+	}
+
+	return dataAtom(ctx, result);
+}, "add");
+
 const update = action(ctx => {
 	const data = ctx.get(dataAtom).slice();
 	for (let i = 0; i < data.length; i += 10) {
@@ -60,20 +76,31 @@ const update = action(ctx => {
 	}
 	dataAtom(ctx, data);
 }, "update");
+
 const swapRows = action(ctx => {
 	const data = ctx.get(dataAtom).slice();
+
 	if (data.length > 998) {
 		const tmp = data[1];
 		data[1] = data[998];
 		data[998] = tmp;
-		dataAtom(ctx, data);
 	}
+
+	dataAtom(ctx, data);
 }, "swapRows");
+
 const clear = action(ctx => dataAtom(ctx, []), "clear");
+
 const remove = action((ctx, id) => {
-	const newData = ctx.get(dataAtom).filter(row => row.id !== id);
-	dataAtom(ctx, newData);
+	const data = ctx.get(dataAtom).slice();
+	const index = data.findIndex(row => row.id === id);
+
+	if (index === -1) return;
+
+	data.splice(index, 1);
+	dataAtom(ctx, data);
 }, "remove");
+
 const select = action((ctx, id: number) => {
 	selectedAtom(ctx, id);
 }, "select");
